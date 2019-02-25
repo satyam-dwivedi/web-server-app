@@ -1,13 +1,13 @@
 const express = require('express');
 const fs = require('fs');
 const hbs = require('hbs');
+const port = (process.env.PORT || 3000);
 
 var app = express();
 
 hbs.registerPartials(__dirname+'/views/partials');                     //To set path of partials
 app.set('view engine','hbs');                         
-app.use(express.static(__dirname+ '/public'));                          //to use middleware inside express
-/*
+
 app.use((req,res,next)=>{
 	var now = new Date().toString();
 	var log = `${now}: ${req.method} ${req.url}`;
@@ -22,11 +22,14 @@ app.use((req,res,next)=>{
 
 });
 
-app.use((req,res,next)=>{
+/*app.use((req,res,next)=>{
 
 	res.render('maintainance.hbs');
 
 });
+*/
+app.use(express.static(__dirname+ '/public'));                          //to use middleware inside express
+
 
 hbs.registerHelper('getYear',() => {
 	return new Date().getFullYear();
@@ -73,9 +76,9 @@ app.get('/help',(req,res) => {
 
 });
 
-*/
-app.listen(8000,()=>{
+
+app.listen(port,()=>{
 	
-	console.log("server is start at port 8000");
+	console.log(`server is start at port ${port}`);
 
 });
